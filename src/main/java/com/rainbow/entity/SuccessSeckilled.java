@@ -13,6 +13,7 @@ public class SuccessSeckilled {
     private Date createTime;
 
     private Seckill seckill;
+
     public Long getSeckillId() {
         return seckillId;
     }
