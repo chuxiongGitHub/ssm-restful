@@ -17,10 +17,21 @@
         UPDATE seckill
         set
         number=number-1
-        where seckill_id=#{seckillId}
+        where seckill_id= #{seckillId}
+        and start_time<![CDATA[ <= ]]> #{killTime}
+        and end_time <![CDATA[>=]]> #{killTime}
+        and number>0
     </update>
-<select id="queryById" resultType="com.rainbow.entity.Seckill">
+<select id="queryById" resultType="seckill" parameterType="long">
+    SELECT seckill_id ,name,start_time,end_time,create_time
+    from seckill
+    where seckill_id=#{seckillId}
 
 </select>
-    <select id="queryAll" resultType="com.rainbow.entity.Seckill"></select>
+    <select id="queryAll" resultType="seckill">
+        SELECT seckill_id ,name,start_time,end_time,create_time
+        from seckill
+        ORDER by create_time DESC
+        limit #{offset},#{limit}
+    </select>
 </mapper>

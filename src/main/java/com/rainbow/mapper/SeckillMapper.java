@@ -1,6 +1,7 @@
 package com.rainbow.mapper;
 
 import com.rainbow.entity.Seckill;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
 import java.util.List;
@@ -24,7 +25,7 @@ public interface SeckillMapper {
      * @param killTime
      * @return
      */
-    int reduceNumber(Long seckillId, Date killTime);
+    int reduceNumber(@Param("seckillId") Long seckillId, @Param("killTime") Date killTime);
 
     /**
      *根据id查询秒杀商品
@@ -39,5 +40,5 @@ public interface SeckillMapper {
      * @param limit
      * @return
      */
-    List<Seckill> queryAll(int offset,int limit);
+    List<Seckill> queryAll(@Param("offset") int offset,@Param("limit") int limit);
 }

@@ -26,8 +26,8 @@ VALUES
 --秒杀成功明细表
 --用户登录相关的认证信息
 create table success_killed(
-'seckill_id' bigint NOT NULL comment '秒杀商品的ID',
-'user_phone' bigint NOT NULL comment '用户手机号码',
+'seckill_id' bigint NOT NULL comment  '秒杀商品的ID',
+'user_phone' bigint NOT NULL comment  '用户手机号码',
 'status' tinyint NOT NULL DEFAULT -1 comment '状态表示：-1：无效，0：成功，1：已付款',
 'create_time' TIMESTAMP NOT NULL comment '创建时间',
 PRIMARY KEY(seckill_id,user_phone),/*联合主键*/
