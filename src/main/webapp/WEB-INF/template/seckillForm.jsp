@@ -35,7 +35,7 @@
         </tr>
         <tr>
             <td>结束时间</td>
-            <td><input type="endTime" name="entTime" class="easyui-datetimebox"></td>
+            <td><input type="endTime" name="endTime" class="easyui-datetimebox"></td>
         </tr>
         <tr>
             <td colspan="2" align="center">

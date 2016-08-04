@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * Created by rainbow on 2016/8/3.
@@ -30,11 +32,26 @@ public class SeckillController {
     }
 
     //插入数据
-    // /seckill/insertSeckill
     @RequestMapping(value = "/insertSeckill", method = RequestMethod.POST)
     public String insertSeckill(Seckill seckill, HttpServletRequest request) throws Exception {
         seckillService.insertSeckill(seckill);
         logger.info("插入数据的id是：" + request.getParameter("seckillId"));
+        return "redirect:success";
+    }
+
+    @RequestMapping(value = "/success")
+    public String success() {
         return "success";
     }
+
+    @RequestMapping(value = "/getSeckillList")
+    public ModelAndView getSeckillList() {
+        List<Seckill> list = seckillService.getSeckillList();
+        logger.info("list={}", list);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("seckill", list);
+        modelAndView.setViewName("seckillList");
+        return modelAndView;
+    }
+
 }

@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -33,7 +35,16 @@ public class SeckillServiceTest {
 
     @Test
     public void testInsertSeckill() throws Exception {
+        Seckill seckill=new Seckill();
+        SimpleDateFormat sf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
+        seckill.setEndTime(new Date());
+        seckill.setCreateTime(new Date());
+        seckill.setStartTime(new Date());
+        seckill.setName("比亚迪轿车");
+        seckill.setNumber(2);
+        seckillService.insertSeckill(seckill);
+        logger.info("插入的数据是={}",seckill);
     }
 
     @Test

@@ -9,6 +9,9 @@
     values (#{seckillId}, #{name}, #{number},
     #{startTime}, #{endTime}, #{createTime}
     )
+    <!--<selectKey resultType="int" keyProperty="seckillId" order="AFTER">-->
+        <!--select last_insert_id()-->
+    <!--</selectKey>-->
     </insert>
 
     <!--更新库存-->
