@@ -2,14 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.rainbow.mapper.SeckillMapper" >
     <!--新增库存-->
-    <insert id="insert" parameterType="seckill">
-
-            insert into items (id, name, price,
-            pic, createtime, detail
-            )
-            values (#{id}, #{name}, #{price},
-            #{pic}, #{createtime}, #{detail}
-            )
+    <insert id="insert" parameterType="com.rainbow.generator.entity.Seckill">
+    insert into seckill (seckill_id, name, number,
+    start_time, end_time, create_time
+    )
+    values (#{seckillId}, #{name}, #{number},
+    #{startTime}, #{endTime}, #{createTime}
+    )
     </insert>
 
     <!--更新库存-->

@@ -16,7 +16,7 @@ public interface SuccessSeckilledMapper {
      * @param userPhone
      * @return
      */
-    int insertSuccessSeckilled(@Param("seckillId") long seckillId, @Param("user_Phone") long userPhone);
+    int insertSuccessSeckilled(@Param("seckillId") long seckillId, @Param("userPhone") long userPhone);
 
     /**
      * 根据id查询SuccessSeckilled并携带秒杀产品对象实体

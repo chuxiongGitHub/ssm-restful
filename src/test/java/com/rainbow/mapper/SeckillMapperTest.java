@@ -8,6 +8,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -29,6 +30,16 @@ public class SeckillMapperTest {
     @Test
     public void testInsert() throws Exception {
 
+
+        Seckill seckill=new Seckill();
+        SimpleDateFormat sf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        seckill.setEndTime(new Date());
+        seckill.setCreateTime(new Date());
+        seckill.setStartTime(new Date());
+        seckill.setName("比亚迪轿车");
+        seckill.setNumber(2);
+        seckillMapper.insert(seckill);
 
     }
 
