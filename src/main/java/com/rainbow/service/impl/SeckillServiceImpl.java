@@ -42,7 +42,7 @@ public class SeckillServiceImpl implements SeckillService {
     private final String slat = "asdfasdfewdsdf%#43@5&8***sdfas!~~￥##@ftT";
 
     public List<Seckill> getSeckillList() {
-        return seckillMapper.queryAll(0, 4);
+        return seckillMapper.queryAll(0, 15);
     }
 
     public Seckill getById(Long seckillId) {
@@ -126,5 +126,11 @@ public class SeckillServiceImpl implements SeckillService {
         String base = seckillId + "/" + slat;
         String md5 = DigestUtils.md5Hex(base.getBytes());
         return md5;
+    }
+
+    public List<Seckill> queryList() {
+        List<Seckill> list = seckillMapper.queryList();
+
+        return list;
     }
 }

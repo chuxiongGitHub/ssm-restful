@@ -31,9 +31,13 @@
 
 </select>
     <select id="queryAll" resultType="seckill">
-        SELECT seckill_id ,name,start_time,end_time,create_time
+        SELECT seckill_id ,number,name,start_time,end_time,create_time
         from seckill
         ORDER by create_time DESC
         limit #{offset},#{limit}
     </select>
+    
+   <select id="queryList" resultType="seckill">
+       SELECT * from seckill
+   </select>
 </mapper>

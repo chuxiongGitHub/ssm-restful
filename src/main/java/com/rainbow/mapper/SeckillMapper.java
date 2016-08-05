@@ -41,4 +41,6 @@ public interface SeckillMapper {
      * @return
      */
     List<Seckill> queryAll(@Param("offset") int offset,@Param("limit") int limit);
+
+    List<Seckill> queryList();
 }
