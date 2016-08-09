@@ -10,6 +10,7 @@ import com.rainbow.exception.SeckillCloseException;
 import com.rainbow.exception.SeckillException;
 import com.rainbow.mapper.SeckillMapper;
 import com.rainbow.mapper.SuccessSeckilledMapper;
+import com.rainbow.mapper.cache.RedisDao;
 import com.rainbow.service.SeckillService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
@@ -37,6 +38,8 @@ public class SeckillServiceImpl implements SeckillService {
     private SeckillMapper seckillMapper;
     @Autowired
     private SuccessSeckilledMapper successSeckilledMapper;
+    @Autowired
+    private RedisDao redisDao;
 
     //加入一个混淆的概念
     private final String slat = "asdfasdfewdsdf%#43@5&8***sdfas!~~￥##@ftT";
@@ -50,9 +53,20 @@ public class SeckillServiceImpl implements SeckillService {
     }
 
     public Exporer exportSeckillUrl(long seckillId) {
-        Seckill seckill = seckillMapper.queryById(seckillId);
+        //使用redis进行缓存优化
+        //1、访问redis
+        Seckill seckill = redisDao.getSeckill(seckillId);
         if (seckill == null) {
-            return new Exporer(false, seckillId);
+            //2、返回为空，则说明缓存中没有数据，则访问数据库
+            seckill = seckillMapper.queryById(seckillId);
+            if (seckill == null) {
+                //如果不存在，则说明没有数据
+                return new Exporer(false, seckillId);
+            } else {
+                //3、放入redis
+                redisDao.putSeckill(seckill);
+
+            }
         }
         Date startTime = seckill.getStartTime();
         Date endTime = seckill.getEndTime();

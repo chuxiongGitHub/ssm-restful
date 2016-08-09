@@ -43,7 +43,7 @@ public class SeckillController {
     public String insertSeckill(Seckill seckill, HttpServletRequest request) throws Exception {
         seckillService.insertSeckill(seckill);
         logger.info("插入数据的id是：" + request.getParameter("seckillId"));
-        return "redirect:success";
+        return "redirect:/seckill/getSeckillList";
     }
 
     @RequestMapping(value = "/success")
