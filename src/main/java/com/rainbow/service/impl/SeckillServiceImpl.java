@@ -13,6 +13,7 @@ import com.rainbow.mapper.SuccessSeckilledMapper;
 import com.rainbow.mapper.cache.RedisDao;
 import com.rainbow.service.SeckillService;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.collections.MapUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -146,5 +149,34 @@ public class SeckillServiceImpl implements SeckillService {
         List<Seckill> list = seckillMapper.queryList();
 
         return list;
+    }
+
+    public SeckillExecution executeSeckillProcedure(long seckillId, long userPhone, String md5) {
+        if (md5 == null || md5.equals(getMD5(seckillId))) {
+            return new SeckillExecution(seckillId, SeckillStatEnum.DATA_REARITE);
+        }
+        Date killTime = new Date();
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("seckillId", seckillId);
+        map.put("phone", userPhone);
+        map.put("killTime", killTime);
+        map.put("result", null);
+        try {
+            seckillMapper.killByProcedure(map);
+            //获取result
+
+            int result = MapUtils.getInteger(map, "result", -2);
+            if (result == 1) {
+                SuccessSeckilled sk = successSeckilledMapper.queryByIdWithSeckill(seckillId, userPhone);
+
+                return new SeckillExecution(seckillId, SeckillStatEnum.SUCCESS, sk);
+            } else {
+                return new SeckillExecution(seckillId, SeckillStatEnum.statusOf(result));
+            }
+
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return new SeckillExecution(seckillId, SeckillStatEnum.INNER_ERRO);
+        }
     }
 }

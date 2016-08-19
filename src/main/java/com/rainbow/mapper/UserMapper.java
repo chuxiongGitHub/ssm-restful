@@ -11,7 +11,9 @@ import java.util.List;
 public interface UserMapper {
 
     //新增用户
-    int insertUser(User user);
+    public int insertUser(User user);
 
-    List<User> userList();
+    public List<User> userList();
+
+    public User getUserByName(String username);
 }

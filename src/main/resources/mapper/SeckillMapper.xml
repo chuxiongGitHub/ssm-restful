@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.rainbow.mapper.SeckillMapper" >
+<mapper namespace="com.rainbow.mapper.SeckillMapper">
     <!--新增库存-->
-    <insert id="insert" parameterType="com.rainbow.generator.entity.Seckill">
-    insert into seckill (seckill_id, name, number,
-    start_time, end_time, create_time
-    )
-    values (#{seckillId}, #{name}, #{number},
-    #{startTime}, #{endTime}, #{createTime}
-    )
-    <!--<selectKey resultType="int" keyProperty="seckillId" order="AFTER">-->
+    <insert id="insert" parameterType="com.rainbow.entity.Seckill">
+        insert into seckill (seckill_id, name, number,
+        start_time, end_time, create_time
+        )
+        values (#{seckillId}, #{name}, #{number},
+        #{startTime}, #{endTime}, #{createTime}
+        )
+        <!--<selectKey resultType="int" keyProperty="seckillId" order="AFTER">-->
         <!--select last_insert_id()-->
-    <!--</selectKey>-->
+        <!--</selectKey>-->
     </insert>
 
     <!--更新库存-->
@@ -24,7 +24,7 @@
         and end_time <![CDATA[>=]]> #{killTime}
         and number>0
     </update>
-<select id="queryById" resultType="seckill" parameterType="long">
+    <select id="queryById" resultType="seckill" parameterType="long">
     SELECT seckill_id ,name,start_time,end_time,create_time
     from seckill
     where seckill_id=#{seckillId}
@@ -36,8 +36,17 @@
         ORDER by create_time DESC
         limit #{offset},#{limit}
     </select>
-    
-   <select id="queryList" resultType="seckill">
+
+    <select id="queryList" resultType="seckill">
        SELECT * from seckill
    </select>
+    <!--存储过程调用-->
+    <select id="killByProcedure" statementType="CALLABLE">
+        call execute_seckill(
+        #{seckillId,jdbcType=BIGINT,mode=IN}
+        #{phone,jdbcType=BIGINT,mode=IN}
+        #{killTime,jdbcType=TIMESTAMP,mode=IN}
+       #{result,jdbcType=INTEGER,mode=out}
+        )
+    </select>
 </mapper>

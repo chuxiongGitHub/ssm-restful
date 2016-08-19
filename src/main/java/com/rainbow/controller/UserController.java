@@ -1,11 +1,14 @@
 package com.rainbow.controller;
 
+import com.rainbow.dto.UserResult;
 import com.rainbow.entity.User;
 import com.rainbow.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -39,4 +42,6 @@ public class UserController {
     public String userForm(){
         return "/user/userForm";
     }
+
+
 }

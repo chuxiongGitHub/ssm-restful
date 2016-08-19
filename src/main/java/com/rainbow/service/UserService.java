@@ -10,7 +10,15 @@ import java.util.List;
  */
 public interface UserService  {
     //插入数据
-    void insertUser(User user);
+    public void insertUser(User user);
 
-    List<User> userList();
+    public List<User> userList();
+
+
+    //根据用户名查找用户
+
+    public User findUserByName(String usename) throws Exception;
+
+
+
 }

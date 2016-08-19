@@ -50,4 +50,13 @@ public interface SeckillService {
             throws SeckillException,RepeatKillException,SeckillCloseException;
 
     List<Seckill> queryList();
+
+    /**
+     * 调用存储过程
+     * @param seckillId
+     * @param userPhone
+     * @param md5
+     * @return
+     */
+    SeckillExecution executeSeckillProcedure(long seckillId,long userPhone,String md5);
 }

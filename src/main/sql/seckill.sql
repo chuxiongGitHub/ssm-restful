@@ -3,13 +3,13 @@ delimiter $$  --console;转化为$$
 --in：输入参数 out:输出参数
 --row_count();返回上一条修改类型的SQL（delete,insert,update）的影响行数
 --row_count();0:未修改数据；>0表示修改的行数；<0 sql错误或者是未执行
-CREATE PROCEDURE 'seckill'.'execute_seckill'
-(in v_seckill_id bigint,int v_phone bigint,
+CREATE PROCEDURE execute_seckill
+(in v_seckill_id bigint,in v_phone bigint,
 in v_kill_time timestamp,out r_result int)
 BEGIN
 DECLARE insert_count int DEFAULT 0;
 start TRANSACTION ;
-INSERT ignore into success_killed(seckill_id,user_phone,create_time)
+INSERT  into success_killed(seckill_id,user_phone,create_time)
 VALUES (v_seckill_id,v_phone,v_kill_time);
 SELECT  ROW_COUNT INTO insert_count;
   (insert_count=0) THEN

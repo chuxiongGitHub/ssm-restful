@@ -34,4 +34,8 @@ public class UserServiceImpl implements UserService {
 
         return list;
     }
+
+    public User findUserByName(String usename) throws Exception {
+        return null;
+    }
 }
